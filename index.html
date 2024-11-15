@@ -26,10 +26,18 @@
 <body data-bs-theme="dark" onload="showAllTokens()" style="background-color: #212529;"></body>
 <script type="module">
     import { showAllTokens, saveToken, deleteToken, selectToken } from './js/token-service.js';
+    import { mainInputKeypressHandler, tokenInputKeypressHandler } from './js/handlers.js';
+
     window.showAllTokens = showAllTokens;
     window.saveToken = saveToken;
     window.deleteToken = deleteToken;
     window.selectToken = selectToken;
+
+    const mainInput = document.getElementById("input-main");
+    const tokenInput = document.getElementById("input-token");
+
+    mainInput.addEventListener('keypress', mainInputKeypressHandler);
+    tokenInput.addEventListener('keypress', tokenInputKeypressHandler);
 </script>
 <div style="height: 50px;"></div>
 <div class="container text-center">
@@ -82,7 +90,7 @@
     <div style="height: 30px;"></div>
     <div class="row">
         <div class="col" style="padding: 0;">
-            <input class="form-control form-control-lg" type="text">
+            <input id="input-main" class="form-control form-control-lg" type="text">
         </div>
     </div>
 </div>

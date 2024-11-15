@@ -1,5 +1,6 @@
 import { save, remove, tokenAlreadyExists, findAll } from "./tokens-repository.js";
-import { getInputToken, clearInputToken, isTokenEmpty } from "./utils.js";
+import { getInputToken, clearInputToken } from "./utils.js";
+import { isTokenEmpty, tokenInputHasInvalidCaracters } from "./validations.js";
 
 let selectedLine;
 let selectedToken = "";
@@ -29,6 +30,11 @@ const saveToken = () => {
 
     if (isTokenEmpty(token)) {
         alert("O token não pode ser vazio!");
+        return;
+    }
+
+    if (tokenInputHasInvalidCaracters(token)) {
+        alert("O token tem caracteres inválidos!");
         return;
     }
 
