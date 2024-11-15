@@ -1,0 +1,44 @@
+body {
+    background-color: #212529;
+}
+
+h2 {
+    color: white;
+}
+
+.console-wrapper {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.console {
+    background-color: #1B1F22;
+    border: 1px solid #495057;
+    border-radius: 5px;
+    flex-grow: 1;
+}
+
+.tokens {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.scrollable-table {
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+table th {
+    position: sticky;
+    top: 0;
+}
+
+.selected td {
+    background-color: #373b3d;
+}
+
+tbody tr:hover {
+    cursor: pointer;
+}
