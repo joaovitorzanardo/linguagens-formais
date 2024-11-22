@@ -1,9 +1,12 @@
 import { save, remove, tokenAlreadyExists, findAll } from "./tokens-repository.js";
 import { getInputToken, clearInputToken } from "./utils.js";
 import { isTokenEmpty, tokenInputHasInvalidCaracters } from "./validations.js";
+import Automato from './automato.js';
 
 let selectedLine;
 let selectedToken = "";
+
+let automato = new Automato().getInstance();
 
 const selectToken = (e) => {
     let tds = e.getElementsByTagName('td');
@@ -63,7 +66,10 @@ const showAllTokens = () => {
     let rows = "";
 
     let counter = 1;
+
+    automato.resetEstados();
     tokens.forEach((t) => {
+        automato.adicionarPalavra(t);
         let row = `<tr onclick="selectToken(this)"><td>${counter}</td><td>${t}</td></tr>`
 
         rows += row;

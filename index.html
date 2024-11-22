@@ -19,11 +19,13 @@
     <script type="module">
         import { showAllTokens, saveToken, deleteToken, selectToken } from './js/token-service.js';
         import { mainInputKeypressHandler, tokenInputKeypressHandler } from './js/handlers.js';
+        import { clearConsole } from './js/utils.js';
 
         window.showAllTokens = showAllTokens;
         window.saveToken = saveToken;
         window.deleteToken = deleteToken;
         window.selectToken = selectToken;
+        window.clearConsole = clearConsole;
 
         const mainInput = document.getElementById("input-main");
         const tokenInput = document.getElementById("input-token");
@@ -40,7 +42,11 @@
                 </div>
                 <div style="height: 15px;"></div>
                 <div class="row console-wrapper">
-                    <div class="console"></div>
+                    <div id="console" class="console"></div>
+                </div>
+                <div style="margin-top: 15px;" class="row">
+                    <button style="width: 25%;" type="button" class="btn btn-secondary" onclick="clearConsole()">Limpar
+                        Console</button>
                 </div>
             </div>
             <div class="col-5" style="height: 100%;">
