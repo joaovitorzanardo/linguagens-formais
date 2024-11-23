@@ -1,5 +1,5 @@
 import { save, remove, tokenAlreadyExists, findAll } from "./tokens-repository.js";
-import { getInputToken, clearInputToken } from "./utils.js";
+import { getInputToken, clearInputToken, renderStateTableHead, renderStateTableBody } from "./utils.js";
 import { isTokenEmpty, tokenInputHasInvalidCaracters } from "./validations.js";
 import Automato from './automato.js';
 
@@ -48,6 +48,7 @@ const saveToken = () => {
 
     save(token);
     showAllTokens();
+    renderStateTableBody();
     clearInputToken();
 }
 
@@ -59,6 +60,13 @@ const deleteToken = () => {
 
     remove(selectedToken);
     showAllTokens();
+    renderStateTableBody();
+}
+
+const initialize = () => {
+    showAllTokens();
+    renderStateTableHead();
+    renderStateTableBody();
 }
 
 const showAllTokens = () => {
@@ -67,10 +75,10 @@ const showAllTokens = () => {
 
     let counter = 1;
 
-    automato.resetEstados();
+    automato.reset();
     tokens.forEach((t) => {
         automato.adicionarPalavra(t);
-        let row = `<tr onclick="selectToken(this)"><td>${counter}</td><td>${t}</td></tr>`
+        let row = `<tr onclick="selectToken(this)"><td>${counter}</td><td>${t}</td></tr>`;
 
         rows += row;
         counter++;
@@ -81,6 +89,6 @@ const showAllTokens = () => {
     tableBody.innerHTML = rows;
 }
 
-export { saveToken, deleteToken, showAllTokens, selectToken };
+export { saveToken, deleteToken, selectToken, initialize };
 
 

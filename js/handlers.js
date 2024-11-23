@@ -1,5 +1,5 @@
 import { mainInputHasInvalidCaracters, tokenInputHasInvalidCaracters } from './validations.js';
-import { getInputMain, getConsole } from "./utils.js";
+import { getInputMain, getConsole, cleanData } from "./utils.js";
 import Automato from './automato.js';
 
 let automato = new Automato().getInstance();
@@ -9,7 +9,12 @@ const mainInputKeypressHandler = (e) => {
         e.preventDefault();
     }
 
+    if (e.code === 'Backspace') {
+        e.preventDefault();
+    }
+
     if (e.code !== 'Space') {
+        automato.trocarEstado(e.key);
         return;
     }
 
@@ -22,11 +27,12 @@ const mainInputKeypressHandler = (e) => {
         let console = getConsole();
 
         if (automato.reconhecer(lastWord)) {
-            console.innerHTML += `<p class="console-item">${lastWord}: <span style="color: green;">Reconhecido</span></p>`;
-            return;
+            console.innerHTML = `<p class="console-item">${lastWord}: <span style="color: green;">Reconhecido</span></p>`;
+        } else {
+            console.innerHTML = `<p class="console-item">${lastWord}: <span style="color: red;">Não Reconhecido</span></p>`;
         }
 
-        console.innerHTML += `<p class="console-item">${lastWord}: <span style="color: red;">Não Reconhecido</span></p>`;
+        cleanData();
     }
 }
 

@@ -1,7 +1,9 @@
 let instance = null;
 let estados = {};
 let estadoInicial = 'q0';
+let estadoAtual = estadoInicial;
 let estadosFinais = new Set();
+let palavrasCadastradas = new Set();
 let proximoEstado = 1;
 
 export default class Automato {
@@ -15,6 +17,10 @@ export default class Automato {
         return this;
     }
 
+    getStates() {
+        return estados;
+    }
+
     // Método para adicionar uma palavra ao autômato
     adicionarPalavra(palavra) {
         let estadoAtual = estadoInicial;
@@ -23,14 +29,13 @@ export default class Automato {
         for (let i = 0; i < palavra.length; i++) {
             const letra = palavra[i];
 
-            // Se não existir uma transição para a letra, cria uma nova
+            // Se não existir uma transição para a letra, cria o próximo estado
             if (!estados[estadoAtual]) {
                 estados[estadoAtual] = {};
             }
 
-            // Se não existir uma transição para a letra, cria o próximo estado
             if (!estados[estadoAtual][letra]) {
-                const novoEstado = 'q' + this.proximoEstado++;
+                const novoEstado = 'q' + proximoEstado++;
                 estados[estadoAtual][letra] = novoEstado;
             }
 
@@ -38,31 +43,45 @@ export default class Automato {
             estadoAtual = estados[estadoAtual][letra];
         }
 
-        // Marca o estado final para a palavra
+        // Marca o último estado alcançado como estado final
         estadosFinais.add(estadoAtual);
+        palavrasCadastradas.add(palavra); // Armazena a palavra cadastrada
+        estadoAtual = estadoInicial;
     }
 
-    // Função para verificar se uma palavra é aceita pelo autômato
+    // Função para verificar se uma palavra é aceita pelo autômato (somente se for exatamente igual)
     reconhecer(palavra) {
-        let estadoAtual = estadoInicial;
-
-        for (let i = 0; i < palavra.length; i++) {
-            const letra = palavra[i];
-
-            // Verifica se existe uma transição válida para a letra
-            if (estados[estadoAtual] && estados[estadoAtual][letra]) {
-                estadoAtual = estados[estadoAtual][letra];
-            } else {
-                return false;  // Se não houver transição, a palavra não é aceita
-            }
+        if (estadoAtual === null) {
+            return false;
         }
 
-        // Se o estado final alcançado for um estado de aceitação, a palavra é aceita
         return estadosFinais.has(estadoAtual);
     }
 
-    resetEstados() {
+    trocarEstado(letra) {
+        if (estadoAtual === null) {
+            return;
+        }
+
+        if (estados[estadoAtual] && estados[estadoAtual][letra]) {
+            let tableData = document.getElementById(`${estadoAtual}${letra}`);
+            estadoAtual = estados[estadoAtual][letra];
+            tableData.classList.add("found");
+            return;
+        }
+
+        estadoAtual = null;
+    }
+
+    reset() {
         estados = {};
+        estadosFinais = new Set();
+        palavrasCadastradas = new Set();
+        proximoEstado = 1
+    }
+
+    resetCurrentState() {
+        estadoAtual = estadoInicial;
     }
 
 }
