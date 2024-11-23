@@ -19,13 +19,14 @@
     <script type="module">
         import { saveToken, deleteToken, selectToken, initialize } from './js/token-service.js';
         import { mainInputKeypressHandler, tokenInputKeypressHandler } from './js/handlers.js';
-        import { clearConsole } from './js/utils.js';
+        import { clearConsole, gerarPalavraAleatoria } from './js/utils.js';
 
         window.initialize = initialize;
         window.saveToken = saveToken;
         window.deleteToken = deleteToken;
         window.selectToken = selectToken;
         window.clearConsole = clearConsole;
+        window.gerarPalavraAleatoria = gerarPalavraAleatoria;
 
         const mainInput = document.getElementById("input-main");
         const tokenInput = document.getElementById("input-token");
@@ -51,8 +52,18 @@
             </div>
             <div class="col-5" style="height: 100%;">
                 <div class="container tokens">
-                    <div class="row text-start">
-                        <h2>Tokens</h2>
+                    <div style="display: flex;" class="row text-start">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-6">
+                                    <h2>Tokens</h2>
+                                </div>
+                                <div style="padding: 0;" class="col-6 text-end">
+                                    <button onclick="gerarPalavraAleatoria()" class="btn btn-primary">Gerar Token <i
+                                            class="bi bi-shuffle"></i></button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div style="height: 15px;"></div>
                     <div class="row" style="padding: 0;">

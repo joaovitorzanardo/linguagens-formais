@@ -34,6 +34,19 @@ const renderStateTableHead = () => {
     });
 }
 
+function gerarPalavraAleatoria() {
+    const alfabeto = 'abcdefghijklmnopqrstuvwxyz'; // Alfabeto com letras minúsculas
+    let palavra = '';
+    let tamanho = Math.random() * (10 - 2) + 2;
+
+    for (let i = 0; i < tamanho; i++) {
+        const indiceAleatorio = Math.floor(Math.random() * alfabeto.length);
+        palavra += alfabeto[indiceAleatorio];
+    }
+
+    document.getElementById("input-token").value = palavra;
+}
+
 const getTableDataForRow = (state, letters) => {
     let tableData = '';
 
@@ -84,4 +97,4 @@ const cleanData = () => {
     document.getElementById("input-main").value = ""
 }
 
-export { cleanData, getInputToken, getInputMain, getConsole, clearInputToken, clearConsole, renderStateTableHead, renderStateTableBody };
+export { gerarPalavraAleatoria, cleanData, getInputToken, getInputMain, getConsole, clearInputToken, clearConsole, renderStateTableHead, renderStateTableBody };
