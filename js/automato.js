@@ -21,15 +21,12 @@ export default class Automato {
         return estados;
     }
 
-    // Método para adicionar uma palavra ao autômato
     adicionarPalavra(palavra) {
         let estadoAtual = estadoInicial;
 
-        // Para cada caractere da palavra, cria uma transição
         for (let i = 0; i < palavra.length; i++) {
             const letra = palavra[i];
 
-            // Se não existir uma transição para a letra, cria o próximo estado
             if (!estados[estadoAtual]) {
                 estados[estadoAtual] = {};
             }
@@ -39,17 +36,14 @@ export default class Automato {
                 estados[estadoAtual][letra] = novoEstado;
             }
 
-            // Move para o próximo estado
             estadoAtual = estados[estadoAtual][letra];
         }
 
-        // Marca o último estado alcançado como estado final
         estadosFinais.add(estadoAtual);
-        palavrasCadastradas.add(palavra); // Armazena a palavra cadastrada
+        palavrasCadastradas.add(palavra);
         estadoAtual = estadoInicial;
     }
 
-    // Função para verificar se uma palavra é aceita pelo autômato (somente se for exatamente igual)
     reconhecer(palavra) {
         if (estadoAtual === null) {
             return false;

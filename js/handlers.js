@@ -1,5 +1,6 @@
 import { mainInputHasInvalidCaracters, tokenInputHasInvalidCaracters } from './validations.js';
 import { getInputMain, getConsole, cleanData } from "./utils.js";
+import { saveToken } from './token-service.js';
 import Automato from './automato.js';
 
 let automato = new Automato().getInstance();
@@ -9,11 +10,7 @@ const mainInputKeypressHandler = (e) => {
         e.preventDefault();
     }
 
-    if (e.code === 'Backspace') {
-        e.preventDefault();
-    }
-
-    if (e.code !== 'Space') {
+    if (e.code !== 'Space' && e.code !== 'Enter') {
         automato.trocarEstado(e.key);
         return;
     }
@@ -39,6 +36,10 @@ const mainInputKeypressHandler = (e) => {
 const tokenInputKeypressHandler = (e) => {
     if (tokenInputHasInvalidCaracters(e.key)) {
         e.preventDefault();
+    }
+
+    if (e.code === 'Enter') {
+        saveToken();
     }
 }
 

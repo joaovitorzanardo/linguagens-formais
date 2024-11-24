@@ -35,7 +35,7 @@ const renderStateTableHead = () => {
 }
 
 function gerarPalavraAleatoria() {
-    const alfabeto = 'abcdefghijklmnopqrstuvwxyz'; // Alfabeto com letras minúsculas
+    const alfabeto = 'abcdefghijklmnopqrstuvwxyz';
     let palavra = '';
     let tamanho = Math.random() * (10 - 2) + 2;
 
